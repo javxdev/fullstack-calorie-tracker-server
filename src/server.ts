@@ -3,6 +3,7 @@ import colors from 'colors'
 import router from './router'
 import db from './config/db'
 import cors, { CorsOptions } from 'cors'
+import morgan from 'morgan'
 
 const server = express()    
 
@@ -27,6 +28,8 @@ const corsOptions: CorsOptions = {
 }
 
 server.use(cors(corsOptions))
+
+server.use(morgan('dev'))
 
 server.use(express.json())
 
