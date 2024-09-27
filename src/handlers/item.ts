@@ -18,7 +18,14 @@ export const createActivity = async (req: Request, res: Response) => {
 }
 
 export const updateActivity = async (req : Request, res : Response) => {
-    res.send('FROM UPDATE ACTIVITY')
+    const product = await Activity.findByPk(req.params.id)
+    if(!product){
+        res.status(404).json({error: 'Activity not found'})
+    }
+
+    await product.update(req.body)
+    await product.save()
+    res.json({data: product})
 }
 
 export const deleteActivity = async (req: Request, res: Response) => {
