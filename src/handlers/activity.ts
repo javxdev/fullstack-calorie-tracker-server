@@ -11,7 +11,7 @@ export const getActivities = async (req: Request, res: Response) => {
 export const getActivityById = async (req: Request, res: Response) => {
     const product = await Activity.findByPk(req.params.id)
     if(!product){
-        res.status(404).json({error: 'Activity not found'})
+        return res.status(404).json({error: 'Activity not found'})
     }
     res.json({data: product})
 }
@@ -24,7 +24,7 @@ export const createActivity = async (req: Request, res: Response) => {
 export const updateActivity = async (req : Request, res : Response) => {
     const product = await Activity.findByPk(req.params.id)
     if(!product){
-        res.status(404).json({error: 'Activity not found'})
+        return res.status(404).json({error: 'Activity not found'})
     }
 
     await product.update(req.body)
