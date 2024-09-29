@@ -9,11 +9,11 @@ export const getActivities = async (req: Request, res: Response) => {
 }
 
 export const getActivityById = async (req: Request, res: Response) => {
-    const product = await Activity.findByPk(req.params.id)
-    if(!product){
+    const activity = await Activity.findByPk(req.params.id)
+    if(!activity){
         return res.status(404).json({error: 'Activity not found'})
     }
-    res.json({data: product})
+    res.json({data: activity})
 }
 
 export const createActivity = async (req: Request, res: Response) => {
@@ -22,16 +22,21 @@ export const createActivity = async (req: Request, res: Response) => {
 }
 
 export const updateActivity = async (req : Request, res : Response) => {
-    const product = await Activity.findByPk(req.params.id)
-    if(!product){
+    const activity = await Activity.findByPk(req.params.id)
+    if(!activity){
         return res.status(404).json({error: 'Activity not found'})
     }
 
-    await product.update(req.body)
-    await product.save()
-    res.json({data: product})
+    await activity.update(req.body)
+    await activity.save()
+    res.json({data: activity})
 }
 
 export const deleteActivity = async (req: Request, res: Response) => {
-    res.send('FROM DELETE ACTIVITY')
+    const activity = await Activity.findByPk(req.params.id)
+    if(!activity){
+        return res.status(404).json({error: 'Activity not found'})
+    }
+    await activity.destroy()
+    res.json({data: 'Product deleted'})
 }
